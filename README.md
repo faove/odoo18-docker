@@ -8,5 +8,6 @@ Este proyecto levanta una instancia de **Odoo 18** conectada a una base de datos
 
 1. Cloná el repositorio:
 ```bash
-git clone https://github.com/tuusuario/odoo18-docker.git
+git clone https://github.com/faove/odoo18-docker.git
+
 cd odoo18-docker

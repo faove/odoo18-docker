@@ -1,17 +1,6 @@
 version: "3.9"
 
 services:
-  db:
-    image: postgres:15
-    container_name: odoo_db
-    restart: unless-stopped
-    env_file:
-      - .env
-    volumes:
-      - db_data:/var/lib/postgresql/data
-    networks:
-      - elantar_net
-
   odoo:
     image: odoo:18.0
     container_name: odoo18
@@ -26,7 +15,16 @@ services:
     networks:
       - elantar_net
     restart: unless-stopped
-
+  db:
+    image: postgres:15
+    container_name: odoo_db
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - elantar_net
 volumes:
   db_data:
   odoo_data:
