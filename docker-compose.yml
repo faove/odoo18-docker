@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    container_name: odoo_db
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - elantar_net
+
+  odoo:
+    image: odoo:18.0
+    container_name: odoo18
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+    env_file:
+      - .env
+    volumes:
+      - odoo_data:/var/lib/odoo
+    networks:
+      - elantar_net
+    restart: unless-stopped
+
+volumes:
+  db_data:
+  odoo_data:
+
+networks:
+  elantar_net:
+    driver: bridge
