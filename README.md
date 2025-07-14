@@ -11,3 +11,5 @@ Este proyecto levanta una instancia de **Odoo 18** conectada a una base de datos
 git clone https://github.com/faove/odoo18-docker.git
 
 cd odoo18-docker
+
+docker-compose up -d
