@@ -14,6 +14,12 @@ services:
       - PASSWORD=qwerty76%&/
     volumes:
       - odoo_data:/var/lib/odoo
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.odoo_prod.rule=Host(`xservice.store`)"
+      - "traefik.http.routers.odoo_prod.entrypoints=websecure"
+      - "traefik.http.routers.odoo_prod.tls.certresolver=letsencrypt"
+      - "traefik.http.services.odoo_prod.loadbalancer.server.port=8069"
     networks:
       - elantar_net
     restart: unless-stopped
