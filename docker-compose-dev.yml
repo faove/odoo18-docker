@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  odoo-dev:
+    image: odoo:18.0
+    container_name: elantar_odoo_dev
+    depends_on:
+      - db-dev
+    ports:
+      - "8070:8069"
+    environment:
+      - HOST=db-dev 
+      - USER=odoo
+      - PASSWORD=qwerty76%&/
+      - PROXY_MODE=True
+      - WEB_BASE_URL=https://dev.xservice.store
+    volumes:
+      - odoo_data_dev:/var/lib/odoo
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.odoo_dev.rule=Host(`dev.xservice.store`)"
+      - "traefik.http.routers.odoo_dev.entrypoints=websecure"
+      - "traefik.http.routers.odoo_dev.tls.certresolver=letsencrypt"
+      - "traefik.http.services.odoo_dev.loadbalancer.server.port=8069"
+    networks:
+      - elantar_net_dev
+    restart: unless-stopped
+  db-dev:
+    image: postgres:15
+    container_name: odoo_db_dev
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=qwerty76%&/
+    volumes:
+      - db_data_dev:/var/lib/postgresql/data
+    networks:
+      - elantar_net_dev
+volumes:
+  db_data_dev:
+  odoo_data_dev:
+
+networks:
+  elantar_net_dev:
+    external: true
