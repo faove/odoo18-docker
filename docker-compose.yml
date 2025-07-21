@@ -12,6 +12,8 @@ services:
       - HOST=db
       - USER=odoo
       - PASSWORD=qwerty76%&/
+      - PROXY_MODE=True
+      - WEB_BASE_URL=https://xservice.store
     volumes:
       - odoo_data:/var/lib/odoo
     labels:
