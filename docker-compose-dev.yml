@@ -14,6 +14,7 @@ services:
       - PASSWORD=qwerty76%&/
       - PROXY_MODE=True
       - WEB_BASE_URL=https://dev.xservice.store
+      - LIST_DB=False
     volumes:
       - odoo_data_dev:/var/lib/odoo
     labels:
@@ -30,7 +31,7 @@ services:
     container_name: odoo_db_dev
     restart: unless-stopped
     environment:
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=odoo_elantar_dev
       - POSTGRES_USER=odoo
       - POSTGRES_PASSWORD=qwerty76%&/
     volumes:
