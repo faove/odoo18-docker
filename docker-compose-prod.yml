@@ -12,8 +12,16 @@ services:
       - HOST=db
       - USER=odoo
       - PASSWORD=qwerty76%&/
+      - PROXY_MODE=True
+      - WEB_BASE_URL=https://erpelantar.com
     volumes:
       - odoo_data:/var/lib/odoo
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.odoo_prod.rule=Host(`erpelantar.com`)"
+      - "traefik.http.routers.odoo_prod.entrypoints=websecure"
+      - "traefik.http.routers.odoo_prod.tls.certresolver=letsencrypt"
+      - "traefik.http.services.odoo_prod.loadbalancer.server.port=8069"
     networks:
       - elantar_net
     restart: unless-stopped
