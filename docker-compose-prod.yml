@@ -6,8 +6,9 @@ services:
     container_name: elantar_odoo
     depends_on:
       - db
-    ports:
-      - "8069:8069"
+    # No es necesario exponer el puerto 8069 aquí si usas Traefik
+    # ports:
+    #  - "8069:8069"
     environment:
       - HOST=db
       - USER=odoo
@@ -17,11 +18,18 @@ services:
     volumes:
       - odoo_data:/var/lib/odoo
     labels:
+      # Habilita Traefik para este contenedor
       - "traefik.enable=true"
-      - "traefik.http.routers.odoo_prod.rule=Host(`erpelantar.com`)"
-      - "traefik.http.routers.odoo_prod.entrypoints=websecure"
-      - "traefik.http.routers.odoo_prod.tls.certresolver=letsencrypt"
-      - "traefik.http.services.odoo_prod.loadbalancer.server.port=8069"
+      # --- Regla para HTTP (redirección) ---
+      - "traefik.http.routers.odoo-http.entrypoints=web"
+      - "traefik.http.routers.odoo-http.rule=Host(`erpelantar.com`)"
+      - "traefik.http.routers.odoo-http.middlewares=https-redirect"
+      # --- Regla para HTTPS ---
+      - "traefik.http.routers.odoo-https.entrypoints=websecure"
+      - "traefik.http.routers.odoo-https.rule=Host(`erpelantar.com`)"
+      - "traefik.http.routers.odoo-https.tls.certresolver=letsencrypt"
+      # --- Servicio que apunta a Odoo ---
+      - "traefik.http.services.odoo-service.loadbalancer.server.port=8069"
     networks:
       - elantar_net
     restart: unless-stopped
@@ -37,6 +45,7 @@ services:
       - db_data:/var/lib/postgresql/data
     networks:
       - elantar_net
+      
 volumes:
   db_data:
   odoo_data:
