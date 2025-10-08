@@ -1,0 +1,12 @@
+[submodule "oca-addons/web"]
+    path = oca-addons/web
+    url = https://github.com/OCA/web.git
+    branch = 18.0
+#[submodule "oca-addons/server-tools"]
+#    path = oca-addons/server-tools
+#    url = https://github.com/OCA/server-tools.git
+#    branch = 18.0
+#[submodule "oca-addons/reporting-engine"]
+#    path = oca-addons/reporting-engine
+#    url = https://github.com/OCA/reporting-engine.git
+#    branch = 18.0
