@@ -1,6 +1,6 @@
 [submodule "oca-addons/web"]
-    path = oca-addons/web
-    url = https://github.com/OCA/web.git
+	path = oca-addons/web
+	url = https://github.com/OCA/web.git
     branch = 18.0
 #[submodule "oca-addons/server-tools"]
 #    path = oca-addons/server-tools
